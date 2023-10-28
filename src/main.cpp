@@ -52,7 +52,19 @@ void quit() {
     SDL_DestroyWindowSurface(window);
     SDL_DestroyWindow(window);
     SDL_Quit();
-} 
+}
+
+void clearScreen() {
+    char* pixels = (char*) screen->pixels;
+    for(int i = 0; i < windowWidth; i++) {
+        for(int j = 0; j < windowHeight; j++) {
+            int ind = (j * screen->pitch + i * screen->format->BytesPerPixel);
+            pixels[ind] = 0;
+            pixels[ind + 1] = 0;
+            pixels[ind + 2] = 0;
+        }
+    }
+}
 
 int main(int argv, char** args) {
 
@@ -64,9 +76,9 @@ int main(int argv, char** args) {
     bool running = true;
     int frameStart, frameTime;
 
-    int tick = 0;
+    Card card(8, 4);
+
     while(running) {
-        tick++;
         frameStart = SDL_GetTicks();
 
         while(SDL_PollEvent(&e) != 0) {
@@ -99,15 +111,15 @@ int main(int argv, char** args) {
         //Update
 
         //Draw
+        clearScreen();
+
         char* pixels = (char*) screen->pixels;
+
+        card.draw(pixels, screen->pitch, screen->format->BytesPerPixel, x, y, 100);
         
         for(int i = 0; i < windowWidth; i++) {
             for(int j = 0; j < windowHeight; j++) {
                 int ind = (j * screen->pitch + i * screen->format->BytesPerPixel);
-                int color = (i + j + tick) % windowWidth * 2 / windowWidth;
-                pixels[ind] = 255 * color;
-                pixels[ind + 1] = 255 * (1 - color);
-                pixels[ind + 1] = 255 * (1 - color);
             }
         }
 

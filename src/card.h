@@ -14,7 +14,7 @@ class Card {
         Card();
         Card(int r, int s);
 
-        void draw(char* pixels, int d);
+        void draw(char* pixels, int pitch, int bytesPerPixel, int x, int y, double w);
         bool beats(Card card);
         std::string getName();
 
