@@ -1,2 +1,2 @@
 all:
-	g++ -ISDL2/include -LSDL2/lib -O3 -o main src/main.cpp src/card.cpp -lmingw32 -lSDL2main -lSDL2
+	g++ -ISDL2/include -LSDL2/lib -O3 -o main src/main.cpp src/card.cpp src/graphics.cpp -lmingw32 -lSDL2main -lSDL2

@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <SDL2/SDL.h>
+#include "graphics.h"
 
 //Suites are 1 - Hearts, 2 - Diamonds, 3 - Clubs, 4 - Spades
 const std::string suites[] = {"", "Hearts", "Diamonds", "Clubs", "Spades"};
@@ -14,7 +16,7 @@ class Card {
         Card();
         Card(int r, int s);
 
-        void draw(char* pixels, int pitch, int bytesPerPixel, int x, int y, double w);
+        void draw(SDL_Surface* screen, int x, int y, double w);
         bool beats(Card card);
         std::string getName();
 

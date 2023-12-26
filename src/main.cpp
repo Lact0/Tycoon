@@ -71,7 +71,7 @@ int main(int argv, char** args) {
     if(!startup()) {
         return 1;
     }
-
+    
     SDL_Event e;
     bool running = true;
     int frameStart, frameTime;
@@ -115,7 +115,7 @@ int main(int argv, char** args) {
 
         char* pixels = (char*) screen->pixels;
 
-        card.draw(pixels, screen->pitch, screen->format->BytesPerPixel, x, y, 100);
+        card.draw(screen, x, y, 100);
         
         for(int i = 0; i < windowWidth; i++) {
             for(int j = 0; j < windowHeight; j++) {
