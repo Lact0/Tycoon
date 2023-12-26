@@ -107,6 +107,8 @@ int main(int argv, char** args) {
         SDL_LockSurface(screen);
         int x, y;
         SDL_GetMouseState(&x, &y);
+        
+        
 
         //Update
 

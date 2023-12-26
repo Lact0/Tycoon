@@ -17,6 +17,6 @@ const Color WHITE(255, 255, 255);
 const Color BLACK(0, 0, 0);
 
 
-void drawLine(SDL_Surface* screen, int x1, int x2, int y1, int y2);
+void drawLine(SDL_Surface* screen, int x0, int y0, int x1, int y1);
 
 }
