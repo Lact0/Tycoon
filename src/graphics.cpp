@@ -20,6 +20,16 @@ bool Color::plot(SDL_Surface* screen, int x, int y) const {
     return true;
 }
 
+bool Color::plot(SDL_Surface* screen, Vector p) const {
+    if(p.vect[0] < 0 || p.vect[0] >= screen->w || p.vect[1] < 0 || p.vect[1] >= screen->h) {return false;}
+    int ind = (p.vect[1] * screen->pitch + p.vect[0] * screen->format->BytesPerPixel);
+    char* pixels = (char*) screen->pixels;
+    pixels[ind] = b;
+    pixels[ind + 1] = g;
+    pixels[ind + 2] = r;
+    return true;
+}
+
 void Graphics::drawLine(SDL_Surface* screen, int x0, int y0, int x1, int y1) {
     int dx = abs(x1 - x0);
     int sx = x0 < x1 ? 1 : -1;
@@ -33,13 +43,37 @@ void Graphics::drawLine(SDL_Surface* screen, int x0, int y0, int x1, int y1) {
         int e2 = 2 * error;
         if(e2 >= dy) {
             if(x0 == x1) {break;}
-            error = error + dy;
-            x0 = x0 + sx;
+            error += dy;
+            x0 += sx;
         }
         if(e2 <= dx) {
             if(y0 == y1) {break;}
-            error = error + dx;
-            y0 = y0 + sy;
+            error += dx;
+            y0 += sy;
+        }
+    }
+}
+
+void Graphics::drawLine(SDL_Surface* screen, Vector p0, Vector p1) {
+    int dx = abs(p1.vect[0] - p0.vect[0]);
+    Vector sx(std::vector{p0.vect[0] < p1.vect[0] ? 1 : -1, 0});
+    int dy = -abs(p1.vect[1] - p0.vect[1]);
+    Vector sy(std::vector{0, p0.vect[1] < p1.vect[1] ? 1 : -1});
+    int error = dx + dy;
+    
+    for(;;) {
+        WHITE.plot(screen, p0);
+        if(p0 == p1) {break;}
+        int e2 = 2 * error;
+        if(e2 >= dy) {
+            if(p0.vect[0] == p1.vect[0]) {break;}
+            error += dy;
+            p0 += sx;
+        }
+        if(e2 <= dx) {
+            if(p0.vect[1] == p1.vect[1]) {break;}
+            error += dx;
+            p0 += sy;
         }
     }
 }

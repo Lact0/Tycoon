@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include "vector.h"
 
 namespace Graphics {
 
@@ -11,6 +12,7 @@ class Color {
 
         Color(int r, int g, int b);
         bool plot(SDL_Surface* screen, int x, int y) const;
+        bool plot(SDL_Surface* screen, Vector p) const;
 };
 
 const Color WHITE(255, 255, 255);
@@ -20,6 +22,7 @@ const Color Green(0, 255, 0);
 const Color BLUE(0, 0, 255);
 
 void drawLine(SDL_Surface* screen, int x0, int y0, int x1, int y1);
+void drawLine(SDL_Surface* screen, Vector p0, Vector p1);
 
 class QuadBezier {
     public:

@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
 #include "card.h"
 #include "vector.h"
 
