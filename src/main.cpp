@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 #include "card.h"
+#include "vector.h"
 
 using namespace std;
 
