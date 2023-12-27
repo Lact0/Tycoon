@@ -107,13 +107,19 @@ int main(int argv, char** args) {
         SDL_LockSurface(screen);
         int x, y;
         SDL_GetMouseState(&x, &y);
-        
-        
 
         //Update
 
         //Draw
         clearScreen();
+
+        int x0 = windowWidth / 4;
+        int y0 = windowHeight / 4 * 3;
+        int x1 = windowWidth / 4 * 3;
+        int y1 = windowHeight / 4;
+        Graphics::QuadBezier curve(x0, y0, x1, y1, x0, y1);
+
+        curve.draw(screen);
 
         char* pixels = (char*) screen->pixels;
 
