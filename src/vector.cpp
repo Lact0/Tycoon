@@ -64,6 +64,26 @@ Vector Vector::operator-(const Vector& o) const {
     return Vector(newVect);
 }
 
+Vector Vector::operator*(const Vector& o) const {
+    std::vector<int> newVect = vect;
+    for(int i = 0; i < vect.size(); i++) {
+        newVect[i] = vect[i] * o.vect[i];
+    }
+    return Vector(newVect);
+}
+
+Vector Vector::operator/(const Vector& o) const {
+    std::vector<int> newVect = vect;
+    for(int i = 0; i < vect.size(); i++) {
+        if(o.vect[i] == 0) {
+            newVect[i] = 0;
+        } else {
+            newVect[i] = vect[i] / o.vect[i];
+        }
+    }
+    return Vector(newVect);
+}
+
 Vector Vector::operator*(double n) const {
     std::vector<int> newVect = vect;
     for(int i = 0; i < vect.size(); i++) {
@@ -93,6 +113,24 @@ void Vector::operator+=(const Vector& o) {
 void Vector::operator-=(const Vector& o) {
     for(int i = 0; i < (o.vect.size() < vect.size()? o.vect.size() : vect.size()); i++) {
         vect[i] -= o.vect[i];
+    }
+    calcMag();
+}
+
+void Vector::operator*=(const Vector& o) {
+    for(int i = 0; i < vect.size(); i++) {
+        vect[i] *= o.vect[i];
+    }
+    calcMag();
+}
+
+void Vector::operator/=(const Vector& o) {
+    for(int i = 0; i < vect.size(); i++) {
+        if(o.vect[i] == 0) {
+            vect[i] = 0;
+        } else {
+            vect[i] /= o.vect[i];
+        }
     }
     calcMag();
 }

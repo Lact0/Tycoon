@@ -15,11 +15,15 @@ class Vector {
 
         Vector operator+(const Vector& o) const;
         Vector operator-(const Vector& o) const;
+        Vector operator*(const Vector& o) const;
+        Vector operator/(const Vector& o) const;
         Vector operator*(double n) const;
         Vector operator/(double n) const;
 
         void operator+=(const Vector& o);
         void operator-=(const Vector& o);
+        void operator*=(const Vector& o);
+        void operator/=(const Vector& o);
         void operator*=(double n);
         void operator/=(double n);
 

@@ -6,9 +6,7 @@ namespace Graphics {
 
 class Color {
     public:
-        int r;
-        int g;
-        int b;
+        int r, g, b;
 
         Color(int r, int g, int b);
         bool plot(SDL_Surface* screen, int x, int y) const;
@@ -26,6 +24,8 @@ void drawLine(SDL_Surface* screen, Vector p0, Vector p1);
 
 void drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, double t1);
 void drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t1);
+
+void drawRect(SDL_Surface* screen, Vector p, Vector d);
 
 class QuadBezier {
     public:

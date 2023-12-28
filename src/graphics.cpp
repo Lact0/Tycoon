@@ -82,8 +82,8 @@ void Graphics::drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, doubl
     double s = 100;
     double f = (t1 - t0) / s;
     for(double i = 1; i <= s; i++) {
-        Vector p0 = p + Vector(std::vector{(int) (cos(f * (i - 1)) * r.vect[0]), (int) (sin(f * (i - 1)) * r.vect[1])});
-        Vector p1 = p + Vector(std::vector{(int) (cos(f * i) * r.vect[0]), (int) (sin(f * i) * r.vect[1])});
+        Vector p0 = p + Vector(std::vector{(int) (sin(f * (i - 1)) * r.vect[0]), (int) (-cos(f * (i - 1)) * r.vect[1])});
+        Vector p1 = p + Vector(std::vector{(int) (sin(f * i) * r.vect[0]), (int) (-cos(f * i) * r.vect[1])});
 
         drawLine(screen, p0, p1);
     }
@@ -91,6 +91,16 @@ void Graphics::drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, doubl
 
 void Graphics::drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t1) {
     drawArc(screen, p, Vector(std::vector{r, r}), t0, t1);
+}
+
+void Graphics::drawRect(SDL_Surface* screen, Vector p, Vector d) {
+    Vector tr = p + Vector(std::vector{d.vect[0], 0});
+    Vector bl = p + Vector(std::vector{0, d.vect[1]});
+    Vector br = p + d;
+    drawLine(screen, p, tr);
+    drawLine(screen, tr, br);
+    drawLine(screen, p, bl);
+    drawLine(screen, bl, br);
 }
 
 QuadBezier::QuadBezier(Vector p0, Vector p1, Vector p2) {

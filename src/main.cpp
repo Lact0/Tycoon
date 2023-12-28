@@ -134,6 +134,13 @@ int main(int argv, char** args) {
             Graphics::drawArc(screen, *ptr, 10, 0, 2 * 3.14159);
         }
 
+        Vector d(vector{250, 500});
+        Vector p(vector{windowWidth - d.vect[0], windowHeight - d.vect[1]});
+        p /= 2;
+        TextGraphics::drawA(screen, p, d);
+        Graphics::drawRect(screen, p - Vector(std::vector{5, 5}), d + Vector(std::vector{10, 10}));
+
+
         //card.draw(screen, x, y, 100);
 
         SDL_UnlockSurface(screen);
