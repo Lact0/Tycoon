@@ -150,12 +150,10 @@ int main(int argv, char** args) {
             Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4 * 3})
         );
 
-        TextGraphics::drawB(screen, p, d);
+        TextGraphics::drawF(screen, p, d);
         Graphics::drawRect(screen, p - Vector(std::vector{5, 5}), d + Vector(std::vector{10, 10}));
-        curve1.draw(screen);
-        curve2.draw(screen);
-
-
+        //curve1.draw(screen);
+        //curve2.draw(screen);
 
         //card.draw(screen, x, y, 100);
 

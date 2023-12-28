@@ -84,8 +84,8 @@ void Graphics::drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, doubl
     double s = 100;
     double f = (t1 - t0) / s;
     for(double i = 1; i <= s; i++) {
-        Vector p0 = p + r * Vector(std::vector{sin(f * (i - 1)), -cos(f * (i - 1))});
-        Vector p1 = p + r * Vector(std::vector{sin(f * i), -cos(f * i)});
+        Vector p0 = p + r * Vector(std::vector{cos(t0 + f * (i - 1)), -sin(t0 + f * (i - 1))});
+        Vector p1 = p + r * Vector(std::vector{cos(t0 + f * i), -sin(t0 + f * i)});
 
         drawLine(screen, p0, p1);
     }

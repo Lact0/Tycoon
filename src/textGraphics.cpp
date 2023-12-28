@@ -30,10 +30,45 @@ void TextGraphics::drawB(SDL_Surface* screen, Vector p, Vector d) {
 
 }
 
-void TextGraphics::drawC(SDL_Surface* screen, Vector p, Vector d);
-void TextGraphics::drawD(SDL_Surface* screen, Vector p, Vector d);
-void TextGraphics::drawE(SDL_Surface* screen, Vector p, Vector d);
-void TextGraphics::drawF(SDL_Surface* screen, Vector p, Vector d);
+void TextGraphics::drawC(SDL_Surface* screen, Vector p, Vector d) {
+    drawArc(screen, p + d / 2, d / 2, M_PI / 4, M_PI / 4 * 7);
+}
+
+void TextGraphics::drawD(SDL_Surface* screen, Vector p, Vector d) {
+    Vector bl = p + d * Vector(std::vector{0, 1});
+    Vector tr = p + d * Vector(std::vector{1, 0});
+    Vector br = p + d;
+    Vector mr = (tr + br) / 2;
+
+    drawLine(screen, p, bl);
+    QuadBezier(p, tr, mr).draw(screen);
+    QuadBezier(mr, br, bl).draw(screen);
+}
+
+void TextGraphics::drawE(SDL_Surface* screen, Vector p, Vector d) {
+    Vector bl = p + d * Vector(std::vector{0, 1});
+    Vector tr = p + d * Vector(std::vector{1, 0});
+    Vector br = p + d;
+    Vector mr = (tr + br) / 2;
+    Vector ml = (p + bl) / 2;
+
+    drawLine(screen, p, tr);
+    drawLine(screen, p, bl);
+    drawLine(screen, ml, mr);
+    drawLine(screen, bl, br);
+}
+
+void TextGraphics::drawF(SDL_Surface* screen, Vector p, Vector d) {
+    Vector bl = p + d * Vector(std::vector{0, 1});
+    Vector tr = p + d * Vector(std::vector{1, 0});
+    Vector mr = (tr + p + d) / 2;
+    Vector ml = (p + bl) / 2;
+
+    drawLine(screen, p, tr);
+    drawLine(screen, p, bl);
+    drawLine(screen, ml, mr);
+}
+
 void TextGraphics::drawG(SDL_Surface* screen, Vector p, Vector d);
 void TextGraphics::drawH(SDL_Surface* screen, Vector p, Vector d);
 void TextGraphics::drawI(SDL_Surface* screen, Vector p, Vector d);
