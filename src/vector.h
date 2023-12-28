@@ -4,12 +4,13 @@
 
 class Vector {
     public:
-        std::vector<int> vect;
+        std::vector<double> vect;
         double mag;
 
         Vector();
         Vector(int d);
         Vector(std::vector<int> vect);
+        Vector(std::vector<double> vect);
 
         std::string toString();
 
@@ -30,7 +31,7 @@ class Vector {
         bool operator==(const Vector &o) const;
 
     private:
-        Vector(std::vector<int> vect, double mag);
+        Vector(std::vector<double> vect, double mag);
 
         void calcMag();
 };

@@ -1,4 +1,5 @@
 #include "textGraphics.h"
+#include <iostream>
 
 using namespace Graphics;
 
@@ -7,7 +8,7 @@ void TextGraphics::drawA(SDL_Surface* screen, Vector p, Vector d) {
     Vector br = p + d;
     Vector tm = p + d / Vector(std::vector{2, 0});
     Vector ml = p + d / Vector(std::vector{4, 2});
-    Vector mr = p + d / Vector(std::vector{4, 2}) * Vector{std::vector{3, 1}};
+    Vector mr = p + d / Vector(std::vector{4.0 / 3, 2.0});
     drawLine(screen, bl, tm);
     drawLine(screen, tm, br);
     drawLine(screen, ml, mr);

@@ -21,8 +21,10 @@ bool Color::plot(SDL_Surface* screen, int x, int y) const {
 }
 
 bool Color::plot(SDL_Surface* screen, Vector p) const {
-    if(p.vect[0] < 0 || p.vect[0] >= screen->w || p.vect[1] < 0 || p.vect[1] >= screen->h) {return false;}
-    int ind = (p.vect[1] * screen->pitch + p.vect[0] * screen->format->BytesPerPixel);
+    int x = p.vect[0];
+    int y = p.vect[1];
+    if(x < 0 || x >= screen->w || y < 0 || y >= screen->h) {return false;}
+    int ind = (y * screen->pitch + x * screen->format->BytesPerPixel);
     char* pixels = (char*) screen->pixels;
     pixels[ind] = b;
     pixels[ind + 1] = g;
@@ -82,8 +84,8 @@ void Graphics::drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, doubl
     double s = 100;
     double f = (t1 - t0) / s;
     for(double i = 1; i <= s; i++) {
-        Vector p0 = p + Vector(std::vector{(int) (sin(f * (i - 1)) * r.vect[0]), (int) (-cos(f * (i - 1)) * r.vect[1])});
-        Vector p1 = p + Vector(std::vector{(int) (sin(f * i) * r.vect[0]), (int) (-cos(f * i) * r.vect[1])});
+        Vector p0 = p + r * Vector(std::vector{sin(f * (i - 1)), -cos(f * (i - 1))});
+        Vector p1 = p + r * Vector(std::vector{sin(f * i), -cos(f * i)});
 
         drawLine(screen, p0, p1);
     }
@@ -94,8 +96,8 @@ void Graphics::drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t
 }
 
 void Graphics::drawRect(SDL_Surface* screen, Vector p, Vector d) {
-    Vector tr = p + Vector(std::vector{d.vect[0], 0});
-    Vector bl = p + Vector(std::vector{0, d.vect[1]});
+    Vector tr = p + d * Vector(std::vector{1, 0});
+    Vector bl = p + d * Vector(std::vector{0, 1});
     Vector br = p + d;
     drawLine(screen, p, tr);
     drawLine(screen, tr, br);

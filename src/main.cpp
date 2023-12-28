@@ -137,8 +137,24 @@ int main(int argv, char** args) {
         Vector d(vector{250, 500});
         Vector p(vector{windowWidth - d.vect[0], windowHeight - d.vect[1]});
         p /= 2;
-        TextGraphics::drawA(screen, p, d);
+
+        Graphics::QuadBezier curve1(
+            Vector(std::vector{windowWidth / 4, windowHeight / 4 * 3}),
+            Vector(std::vector{windowWidth / 4, windowHeight / 4}),
+            Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4})
+        );
+        Graphics::CubicBezier curve2(
+            Vector(std::vector{windowWidth / 4, windowHeight / 4 * 3}),
+            Vector(std::vector{windowWidth / 4, windowHeight / 4}),
+            Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4}),
+            Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4 * 3})
+        );
+
+        TextGraphics::drawB(screen, p, d);
         Graphics::drawRect(screen, p - Vector(std::vector{5, 5}), d + Vector(std::vector{10, 10}));
+        curve1.draw(screen);
+        curve2.draw(screen);
+
 
 
         //card.draw(screen, x, y, 100);

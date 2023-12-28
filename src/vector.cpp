@@ -12,20 +12,25 @@ void Vector::calcMag() {
 
 Vector::Vector() {
     mag = 0;
-    vect = std::vector<int>(2);
+    vect = std::vector<double>(2);
 }
 
 Vector::Vector(int d) {
     mag = 0;
-    vect = std::vector<int>(d);
+    vect = std::vector<double>(d);
 }
 
 Vector::Vector(std::vector<int> vect) {
+    this->vect = std::vector<double>(vect.begin(), vect.end());
+    calcMag();
+}
+
+Vector::Vector(std::vector<double> vect) {
     this->vect = vect;
     calcMag();
 }
 
-Vector::Vector(std::vector<int> vect, double mag) {
+Vector::Vector(std::vector<double> vect, double mag) {
     this->vect = vect;
     this->mag = mag;
 }
@@ -65,7 +70,7 @@ Vector Vector::operator-(const Vector& o) const {
 }
 
 Vector Vector::operator*(const Vector& o) const {
-    std::vector<int> newVect = vect;
+    std::vector<double> newVect = vect;
     for(int i = 0; i < vect.size(); i++) {
         newVect[i] = vect[i] * o.vect[i];
     }
@@ -73,7 +78,7 @@ Vector Vector::operator*(const Vector& o) const {
 }
 
 Vector Vector::operator/(const Vector& o) const {
-    std::vector<int> newVect = vect;
+    std::vector<double> newVect = vect;
     for(int i = 0; i < vect.size(); i++) {
         if(o.vect[i] == 0) {
             newVect[i] = 0;
@@ -85,7 +90,7 @@ Vector Vector::operator/(const Vector& o) const {
 }
 
 Vector Vector::operator*(double n) const {
-    std::vector<int> newVect = vect;
+    std::vector<double> newVect = vect;
     for(int i = 0; i < vect.size(); i++) {
         newVect[i] = vect[i] * n;
     }
@@ -96,7 +101,7 @@ Vector Vector::operator/(double n) const {
     if(n == 0) {
         return Vector(vect.size());
     }
-    std::vector<int> newVect = vect;
+    std::vector<double> newVect = vect;
     for(int i = 0; i < vect.size(); i++) {
         newVect[i] = vect[i] / n;
     }
@@ -144,7 +149,7 @@ void Vector::operator*=(double n) {
 
 void Vector::operator/=(double n) {
     if(n == 0) {
-        vect = std::vector<int>(vect.size());
+        vect = std::vector<double>(vect.size());
         mag = 0;
         return;
     }
