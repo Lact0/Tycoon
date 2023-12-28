@@ -48,7 +48,7 @@ Vector Vector::operator+(const Vector& o) const {
     for(int i = s; i < l; i++) {
         newVect[i] = vect.size() > o.vect.size()? vect[i] : o.vect[i];
     }
-    return Vector(newVect, l);
+    return Vector(newVect);
 }
 
 Vector Vector::operator-(const Vector& o) const {
@@ -61,7 +61,7 @@ Vector Vector::operator-(const Vector& o) const {
     for(int i = s; i < l; i++) {
         newVect[i] = vect.size() > o.vect.size()? vect[i] : -o.vect[i];
     }
-    return Vector(newVect, l);
+    return Vector(newVect);
 }
 
 Vector Vector::operator*(double n) const {

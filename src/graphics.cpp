@@ -78,38 +78,62 @@ void Graphics::drawLine(SDL_Surface* screen, Vector p0, Vector p1) {
     }
 }
 
-QuadBezier::QuadBezier(int x0, int y0, int x1, int y1, int cx, int cy) {
-    this->x0 = x0;
-    this->y0 = y0;
-    this->x1 = x1;
-    this->y1 = y1;
-    this->cx = cx;
-    this->cy = cy;
+QuadBezier::QuadBezier(Vector p0, Vector p1, Vector p2) {
+    this->p0 = p0;
+    this->p1 = p1;
+    this->p2 = p2;
 }
 
-int* QuadBezier::getPoint(double t) {
-    int* pos = new int[2];
-    pos[0] = (x0 + x1 - 2 * cx) * t * t + (2 * cx - 2 * x0) * t + x0;
-    pos[1] = (y0 + y1 - 2 * cy) * t * t + (2 * cy - 2 * y0) * t + y0;
-    return pos;
+Vector QuadBezier::getPoint(double t) {
+    return (p0 + p2 - (p1 * 2)) * t * t + ((p1 * 2) - (p0 * 2)) * t + p0;
 }
 
 double QuadBezier::getLength() {
-    int p0x = x0 + x1 - 2 * cx;
-    int p0y = y0 + y1 - 2 * cy;
-    int p1x = cx - x0;
-    int p1y = cy - y0;
-    return sqrt(p0x * p0x + p0y * p0y) + 2 * sqrt(p1x * p1x + p1y * p1y);
+    //TEMPORARY
+    return (p0 + p2 - (p1 * 2)).mag + 2 * (p1 - p0).mag;
 }
 
 void QuadBezier::drawSegmented(SDL_Surface* screen, int s) {
     for(double i = 1; i <= s; i += 1) {
-        int *p1 = getPoint((i - 1) / s);
-        int *p2 = getPoint(i / s);
-        drawLine(screen, p1[0], p1[1], p2[0], p2[1]);
+        Vector p0 = getPoint((i - 1) / s);
+        Vector p1 = getPoint(i / s);
+        drawLine(screen, p0, p1);
     }
 }
 
 void QuadBezier::draw(SDL_Surface* screen) {
+    //TEMPORARY
+    drawSegmented(screen, getLength() / 3.35616);
+}
+
+CubicBezier::CubicBezier(Vector p0, Vector p1, Vector p2, Vector p3) {
+    this->p0 = p0;
+    this->p1 = p1;
+    this->p2 = p2;
+    this->p3 = p3;
+}
+
+Vector CubicBezier::getPoint(double t) {
+    return (p1 * 3 + p3 - p1 - p2 * 3) * t * t * t + 
+           (p0 * 3 + p2 * 3 - p1 * 6) * t * t +
+           (p1 * 3 - p0 * 3) * t +
+           (p0);
+}
+
+double CubicBezier::getLength() {
+    //TEMPORARY
+    return (p3 - p0).mag;
+}
+
+void CubicBezier::drawSegmented(SDL_Surface* screen, int s) {
+    for(double i = 1; i <= s; i += 1) {
+        Vector p0 = getPoint((i - 1) / s);
+        Vector p1 = getPoint(i / s);
+        drawLine(screen, p0, p1);
+    }
+}
+
+void CubicBezier::draw(SDL_Surface* screen) {
+    //TEMPORARY
     drawSegmented(screen, getLength() / 3.35616);
 }

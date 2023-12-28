@@ -26,13 +26,11 @@ void drawLine(SDL_Surface* screen, Vector p0, Vector p1);
 
 class QuadBezier {
     public:
-        int x0, y0;
-        int x1, y1;
-        int cx, cy;
+        Vector p0, p1, p2;
 
-        QuadBezier(int x0, int y0, int x1, int y1, int cx, int cy);
-            
-        int* getPoint(double t);
+        QuadBezier(Vector p0, Vector p1, Vector p2);
+        
+        Vector getPoint(double t);
         double getLength();
 
         void drawSegmented(SDL_Surface* screen, int s);
@@ -41,14 +39,11 @@ class QuadBezier {
 
 class CubicBezier {
     public:
-        int x0, y0;
-        int x1, y1;
-        int x2, y2;
-        int x3, y3;
+        Vector p0, p1, p2, p3;
 
-        CubicBezier(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3);
+        CubicBezier(Vector p0, Vector p1, Vector p2, Vector p3);
             
-        int* getPoint(double t);
+        Vector getPoint(double t);
         double getLength();
 
         void drawSegmented(SDL_Surface* screen, int s);

@@ -115,17 +115,15 @@ int main(int argv, char** args) {
         //Draw
         clearScreen();
 
-        int x0 = windowWidth / 4;
-        int y0 = windowHeight / 4 * 3;
-        int x1 = windowWidth / 4 * 3;
-        int y1 = windowHeight / 4;
-        Graphics::QuadBezier curve(x0, y0, x1, y1, x0, y1);
-
+        Vector p0(vector{windowWidth / 4, windowHeight / 4 * 3});
+        Vector p1(vector{windowWidth / 4, windowHeight / 4});
+        Vector p2(vector{windowWidth / 4 * 3, windowHeight / 4});
+        Graphics::QuadBezier curve(p0, p1, p2);
         curve.draw(screen);
 
         char* pixels = (char*) screen->pixels;
 
-        card.draw(screen, x, y, 100);
+        //card.draw(screen, x, y, 100);
         
         for(int i = 0; i < windowWidth; i++) {
             for(int j = 0; j < windowHeight; j++) {
