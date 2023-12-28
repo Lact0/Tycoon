@@ -78,6 +78,21 @@ void Graphics::drawLine(SDL_Surface* screen, Vector p0, Vector p1) {
     }
 }
 
+void Graphics::drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, double t1) {
+    double s = 100;
+    double f = (t1 - t0) / s;
+    for(double i = 1; i <= s; i++) {
+        Vector p0 = p + Vector(std::vector{(int) (cos(f * (i - 1)) * r.vect[0]), (int) (sin(f * (i - 1)) * r.vect[1])});
+        Vector p1 = p + Vector(std::vector{(int) (cos(f * i) * r.vect[0]), (int) (sin(f * i) * r.vect[1])});
+
+        drawLine(screen, p0, p1);
+    }
+}
+
+void Graphics::drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t1) {
+    drawArc(screen, p, Vector(std::vector{r, r}), t0, t1);
+}
+
 QuadBezier::QuadBezier(Vector p0, Vector p1, Vector p2) {
     this->p0 = p0;
     this->p1 = p1;
@@ -114,7 +129,7 @@ CubicBezier::CubicBezier(Vector p0, Vector p1, Vector p2, Vector p3) {
 }
 
 Vector CubicBezier::getPoint(double t) {
-    return (p1 * 3 + p3 - p1 - p2 * 3) * t * t * t + 
+    return (p1 * 3 + p3 - p0 - p2 * 3) * t * t * t + 
            (p0 * 3 + p2 * 3 - p1 * 6) * t * t +
            (p1 * 3 - p0 * 3) * t +
            (p0);

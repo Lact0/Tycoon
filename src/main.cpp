@@ -78,10 +78,15 @@ int main(int argv, char** args) {
     bool running = true;
     int frameStart, frameTime;
 
-    Card card(8, 4);
+    vector<Vector*> ponts;
+    Vector* hand = nullptr;
 
     while(running) {
         frameStart = SDL_GetTicks();
+
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        Vector pm(vector{x, y});
 
         while(SDL_PollEvent(&e) != 0) {
             switch(e.type) {
@@ -89,7 +94,15 @@ int main(int argv, char** args) {
                     running = false;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-
+                    if(hand == nullptr) {
+                        for(Vector* ptr : ponts) {
+                            if((pm - *ptr).mag < 10) {
+                                hand = ptr;
+                            }
+                        }
+                    } else {
+                        hand = nullptr;
+                    }
                     break;
                 case SDL_KEYDOWN:
                     switch(e.key.keysym.sym) {
@@ -107,29 +120,21 @@ int main(int argv, char** args) {
         }
 
         SDL_LockSurface(screen);
-        int x, y;
-        SDL_GetMouseState(&x, &y);
+        
+        if(hand != nullptr) {
+            *hand = pm;
+        }
 
         //Update
 
         //Draw
         clearScreen();
 
-        Vector p0(vector{windowWidth / 4, windowHeight / 4 * 3});
-        Vector p1(vector{windowWidth / 4, windowHeight / 4});
-        Vector p2(vector{windowWidth / 4 * 3, windowHeight / 4});
-        Graphics::QuadBezier curve(p0, p1, p2);
-        curve.draw(screen);
-
-        char* pixels = (char*) screen->pixels;
+        for(Vector* ptr: ponts) {
+            Graphics::drawArc(screen, *ptr, 10, 0, 2 * 3.14159);
+        }
 
         //card.draw(screen, x, y, 100);
-        
-        for(int i = 0; i < windowWidth; i++) {
-            for(int j = 0; j < windowHeight; j++) {
-                int ind = (j * screen->pitch + i * screen->format->BytesPerPixel);
-            }
-        }
 
         SDL_UnlockSurface(screen);
         SDL_UpdateWindowSurface(window);

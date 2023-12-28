@@ -24,6 +24,9 @@ const Color BLUE(0, 0, 255);
 void drawLine(SDL_Surface* screen, int x0, int y0, int x1, int y1);
 void drawLine(SDL_Surface* screen, Vector p0, Vector p1);
 
+void drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, double t1);
+void drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t1);
+
 class QuadBezier {
     public:
         Vector p0, p1, p2;
