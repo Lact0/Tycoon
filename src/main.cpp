@@ -154,15 +154,25 @@ int main(int argv, char** args) {
             screen, 
             "The quick brown fox jumps", 
             Vector(), 
-            Vector(std::vector{50, 80})
+            Vector(std::vector{50, 80}),
+            Vector(std::vector{5, 5})
         );
         TextGraphics::drawText(
             screen, 
             "over the lazy dog", 
             Vector(std::vector{0, 80}), 
-            Vector(std::vector{50, 80})
+            Vector(std::vector{50, 80}),
+            Vector(std::vector{5, 5})
         );
-        //TextGraphics::drawZ(screen, p, d);
+        TextGraphics::drawText(
+            screen, 
+            "1234567890", 
+            Vector(std::vector{0, 160}), 
+            Vector(std::vector{50, 80}),
+            Vector(std::vector{5, 5})
+        );
+
+        //TextGraphics::draw9(screen, p, d);
         //Graphics::drawRect(screen, p - Vector(std::vector{5, 5}), d + Vector(std::vector{10, 10}));
         //curve1.draw(screen);
         //curve2.draw(screen);

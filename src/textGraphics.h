@@ -31,7 +31,19 @@ void drawX(SDL_Surface* screen, Vector p, Vector d);
 void drawY(SDL_Surface* screen, Vector p, Vector d);
 void drawZ(SDL_Surface* screen, Vector p, Vector d);
 
+void draw0(SDL_Surface* screen, Vector p, Vector d);
+void draw1(SDL_Surface* screen, Vector p, Vector d);
+void draw2(SDL_Surface* screen, Vector p, Vector d);
+void draw3(SDL_Surface* screen, Vector p, Vector d);
+void draw4(SDL_Surface* screen, Vector p, Vector d);
+void draw5(SDL_Surface* screen, Vector p, Vector d);
+void draw6(SDL_Surface* screen, Vector p, Vector d);
+void draw7(SDL_Surface* screen, Vector p, Vector d);
+void draw8(SDL_Surface* screen, Vector p, Vector d);
+void draw9(SDL_Surface* screen, Vector p, Vector d);
+
 void drawChar(SDL_Surface* screen, char c, Vector p, Vector d);
 void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d);
+void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d, Vector pad);
 
 }
