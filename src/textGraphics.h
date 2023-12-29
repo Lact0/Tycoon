@@ -43,6 +43,7 @@ void draw8(SDL_Surface* screen, Vector p, Vector d);
 void draw9(SDL_Surface* screen, Vector p, Vector d);
 
 void drawChar(SDL_Surface* screen, char c, Vector p, Vector d);
+void drawChar(SDL_Surface* screen, char c, Vector p, Vector d, Vector pad);
 void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d);
 void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d, Vector pad);
 

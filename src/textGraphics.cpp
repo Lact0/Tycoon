@@ -488,6 +488,10 @@ void TextGraphics::drawChar(SDL_Surface* screen, char c, Vector p, Vector d) {
     }
 }
 
+void TextGraphics::drawChar(SDL_Surface* screen, char c, Vector p, Vector d, Vector pad) {
+    TextGraphics::drawChar(screen, c, p + pad, d - pad * 2);
+}
+
 void TextGraphics::drawText(SDL_Surface* screen, std::string text, Vector p, Vector d) {
     for(int i = 0; i < text.length(); i++) {
         TextGraphics::drawChar(screen, text[i], p + d * Vector(std::vector{i, 0}), d);
@@ -496,6 +500,6 @@ void TextGraphics::drawText(SDL_Surface* screen, std::string text, Vector p, Vec
 
 void TextGraphics::drawText(SDL_Surface* screen, std::string text, Vector p, Vector d, Vector pad) {
     for(int i = 0; i < text.length(); i++) {
-        TextGraphics::drawChar(screen, text[i], p + d * Vector(std::vector{i, 0}) + pad, d - pad * 2);
+        TextGraphics::drawChar(screen, text[i], p + d * Vector(std::vector{i, 0}), d, pad);
     }
 }

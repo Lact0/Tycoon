@@ -10,14 +10,12 @@ const std::string ranks[] = {"", "Ace", "2", "3", "4", "5", "6", "7", "8", "9", 
 
 class Card {
     public:
-        int rank;
-        int suite;
+        int rank, suite;
 
         Card();
         Card(int r, int s);
 
-        void draw(SDL_Surface* screen, int x, int y, double w);
+        void draw(SDL_Surface* screen, Vector p, Vector d);
         bool beats(Card card);
         std::string getName();
-
 };

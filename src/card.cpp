@@ -1,4 +1,5 @@
 #include "card.h"
+#include <iostream>
 
 Card::Card() {
     rank = 1;
@@ -10,19 +11,23 @@ Card::Card(int r, int s) {
     suite = s;
 }
 
-void Card::draw(SDL_Surface* screen, int x, int y, double w) {
-    char* pixels = (char*) screen->pixels;
-    x = std::min(std::max(x, 0), screen->w - (int) (w) - 1);
-    y = std::min(std::max(y, 0), screen->h - (int) (w * 7 / 5) - 1);
+void Card::draw(SDL_Surface* screen, Vector p, Vector d) {
+    p = Vector(std::vector{
+        (p.vect[0] < 0? 0 : (p.vect[0] + d.vect[0] + 1 >= screen->w? screen->w - d.vect[0] - 1: p.vect[0])),
+        (p.vect[1] < 0? 0 : (p.vect[1] + d.vect[1] + 1 >= screen->h? screen->h - d.vect[1] - 1: p.vect[1]))
+    });
 
-    for(int i = x; i < x + w; i++) {
-        Graphics::WHITE.plot(screen, i, y);
-        Graphics::WHITE.plot(screen, i, y + w * 7 / 5);
-    }
-    for(int j = y; j < y + w * 7 / 5; j++) {
-        Graphics::WHITE.plot(screen, x, j);
-        Graphics::WHITE.plot(screen, x + w, j);
-    }
+    Graphics::drawRect(screen, p, d);
+    TextGraphics::drawText(
+        screen, std::to_string(rank) + std::to_string(suite),
+        p + d / Vector(std::vector{0, 4}),
+        d / 2, d / 25
+    );
+    // TextGraphics::drawChar(
+    //     screen, '0' +  suite,
+    //     p + d / Vector(std::vector{2, 4}),
+    //     d / 2, d / 25
+    // );
 }
 
 bool Card::beats(Card card) {
