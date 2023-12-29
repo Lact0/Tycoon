@@ -91,7 +91,7 @@ void Graphics::drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, doubl
     }
 }
 
-void Graphics::drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t1) {
+void Graphics::drawArc(SDL_Surface* screen, Vector p, double r, double t0, double t1) {
     drawArc(screen, p, Vector(std::vector{r, r}), t0, t1);
 }
 

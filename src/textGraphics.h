@@ -1,5 +1,6 @@
 #pragma once
 #include "graphics.h"
+#include <string>
 
 namespace TextGraphics {
 
@@ -30,6 +31,7 @@ void drawX(SDL_Surface* screen, Vector p, Vector d);
 void drawY(SDL_Surface* screen, Vector p, Vector d);
 void drawZ(SDL_Surface* screen, Vector p, Vector d);
 
-void drawText(SDL_Surface* screen, Vector p, Vector d);
+void drawChar(SDL_Surface* screen, char c, Vector p, Vector d);
+void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d);
 
 }

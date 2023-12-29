@@ -23,7 +23,7 @@ void drawLine(SDL_Surface* screen, int x0, int y0, int x1, int y1);
 void drawLine(SDL_Surface* screen, Vector p0, Vector p1);
 
 void drawArc(SDL_Surface* screen, Vector p, Vector r, double t0, double t1);
-void drawArc(SDL_Surface* screen, Vector p, int r, double t0, double t1);
+void drawArc(SDL_Surface* screen, Vector p, double r, double t0, double t1);
 
 void drawRect(SDL_Surface* screen, Vector p, Vector d);
 
