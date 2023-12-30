@@ -88,6 +88,11 @@ int main(int argv, char** args) {
         SDL_GetMouseState(&x, &y);
         Vector pm(vector{x, y});
 
+        Card cards[14];
+        for(int i = 0; i < 14; i++) {
+            cards[i] = Card(i + 1, i % 4 + 1);
+        }
+
         while(SDL_PollEvent(&e) != 0) {
             switch(e.type) {
                 case SDL_QUIT:
@@ -119,15 +124,14 @@ int main(int argv, char** args) {
             }
         }
 
-        SDL_LockSurface(screen);
-        
+        //Update
         if(hand != nullptr) {
             *hand = pm;
         }
-
-        //Update
+        Vector windowSize(std::vector{windowWidth, windowHeight});
 
         //Draw
+        SDL_LockSurface(screen);
         clearScreen();
 
         for(Vector* ptr: ponts) {
@@ -138,46 +142,16 @@ int main(int argv, char** args) {
         Vector p(vector{windowWidth - d.vect[0], windowHeight - d.vect[1]});
         p /= 2;
 
-        Graphics::QuadBezier curve1(
-            Vector(std::vector{windowWidth / 4, windowHeight / 4 * 3}),
-            Vector(std::vector{windowWidth / 4, windowHeight / 4}),
-            Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4})
-        );
-        Graphics::CubicBezier curve2(
-            Vector(std::vector{windowWidth / 4, windowHeight / 4 * 3}),
-            Vector(std::vector{windowWidth / 4, windowHeight / 4}),
-            Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4}),
-            Vector(std::vector{windowWidth / 4 * 3, windowHeight / 4 * 3})
-        );
-
-        // TextGraphics::drawText(
-        //     screen, 
-        //     "The quick brown fox jumps", 
-        //     Vector(), 
-        //     Vector(std::vector{50, 70}),
-        //     Vector(std::vector{5, 5})
-        // );
-        // TextGraphics::drawText(
-        //     screen, 
-        //     "over the lazy dog", 
-        //     Vector(std::vector{0, 70}), 
-        //     Vector(std::vector{50, 70}),
-        //     Vector(std::vector{5, 5})
-        // );
-        // TextGraphics::drawText(
-        //     screen, 
-        //     "1234567890", 
-        //     Vector(std::vector{0, 140}), 
-        //     Vector(std::vector{50, 70}),
-        //     Vector(std::vector{5, 5})
-        // );
-
-        //TextGraphics::draw9(screen, p, d);
-        //Graphics::drawRect(screen, p - Vector(std::vector{5, 5}), d + Vector(std::vector{10, 10}));
-        //curve1.draw(screen);
-        //curve2.draw(screen);
-        Card card(4, 6);
-        card.draw(screen, pm, Vector(std::vector{100, 140}));
+        Vector cardSize(std::vector{windowWidth / 15, windowWidth / 15 / 5 * 7});
+        for(int i = 0; i < 14; i++) {
+            Card card = cards[i];
+            Vector cardPos(std::vector{(double) (windowWidth * (i + 1) / 15 / 15 + windowWidth / 15 * i), windowHeight - cardSize.vect[1]});
+            card.draw(
+                screen,
+                cardPos,
+                cardSize
+            );
+        }
 
         SDL_UnlockSurface(screen);
         SDL_UpdateWindowSurface(window);

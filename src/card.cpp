@@ -17,17 +17,32 @@ void Card::draw(SDL_Surface* screen, Vector p, Vector d) {
         (p.vect[1] < 0? 0 : (p.vect[1] + d.vect[1] + 1 >= screen->h? screen->h - d.vect[1] - 1: p.vect[1]))
     });
 
+    std::string text;
+
+    switch(rank) {
+        case  1: text = "A"; break;
+        case 10: text = "T"; break;
+        case 11: text = "J"; break;
+        case 12: text = "Q"; break;
+        case 13: text = "K"; break;
+        default: text = std::to_string(rank);
+    }
+    switch(suite) {
+        case 1: text += "H"; break;
+        case 2: text += "D"; break;
+        case 3: text += "C"; break;
+        case 4: text += "S"; break;
+    }
+    if(rank == 14) {
+        text = "JO";
+    }
+
     Graphics::drawRect(screen, p, d);
     TextGraphics::drawText(
-        screen, std::to_string(rank) + std::to_string(suite),
+        screen, text,
         p + d / Vector(std::vector{0, 4}),
         d / 2, d / 25
     );
-    // TextGraphics::drawChar(
-    //     screen, '0' +  suite,
-    //     p + d / Vector(std::vector{2, 4}),
-    //     d / 2, d / 25
-    // );
 }
 
 bool Card::beats(Card card) {
