@@ -153,6 +153,11 @@ int main(int argv, char** args) {
             );
         }
 
+        Vector ld(std::vector{250, 250 / 5 * 7});
+        Vector lp = (windowSize - ld) / 2;
+        Graphics::drawRect(screen, lp, ld);
+        TextGraphics::drawSpade(screen, lp, ld);
+
         SDL_UnlockSurface(screen);
         SDL_UpdateWindowSurface(window);
         

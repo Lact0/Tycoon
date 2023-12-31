@@ -503,3 +503,72 @@ void TextGraphics::drawText(SDL_Surface* screen, std::string text, Vector p, Vec
         TextGraphics::drawChar(screen, text[i], p + d * Vector(std::vector{i, 0}), d, pad);
     }
 }
+
+void TextGraphics::drawHeart(SDL_Surface* screen, Vector p, Vector d) {
+    double r = d.vect[0] / 4;
+    Vector m = p + d / 2;
+    Vector tlc = m - Vector(std::vector{r,r});
+    Vector trc = m - Vector(std::vector{-r,r});
+    Vector tl = tlc - Vector(std::vector{r,0.0});
+    Vector tr = trc + Vector(std::vector{r,0.0});
+    Vector mbl = tl + Vector(std::vector{0, r});
+    Vector mbr = tr + Vector(std::vector{0, r});
+    Vector b = m + Vector(std::vector{0, r * 2});
+
+    drawArc(screen, tlc, r, 0, M_PI);
+    drawArc(screen, trc, r, 0, M_PI);
+    QuadBezier(tl, mbl, b).draw(screen);
+    QuadBezier(tr, mbr, b).draw(screen);
+}
+
+void TextGraphics::drawDiamond(SDL_Surface* screen, Vector p, Vector d) {
+    Vector tm = p + d / Vector(std::vector{2, 0});
+    Vector ml = p + d / Vector(std::vector{0, 2});
+    Vector mr = p + d / Vector(std::vector{1, 2});
+    Vector bm = p + d / Vector(std::vector{2, 1});
+
+    drawLine(screen, tm, ml);
+    drawLine(screen, ml, bm);
+    drawLine(screen, tm, mr);
+    drawLine(screen, mr, bm);
+}
+
+void TextGraphics::drawClub(SDL_Surface* screen, Vector p, Vector d) {
+    double r = d.vect[0] / 4;
+    Vector lc = p + d / 2 + Vector(std::vector{-r, r / 2});
+    Vector rc = p + d / 2 + Vector(std::vector{r, r / 2});
+    Vector bl = p + d / 2 + Vector(std::vector{-r / 2, r * (.5 + sqrt(3))});
+    Vector br = p + d / 2 + Vector(std::vector{r / 2, r * (.5 + sqrt(3))});
+    Vector tc = p + d / 2 + Vector(std::vector{0, r * (.5 - sqrt(3))});
+    Vector ta = p + d / 2 + Vector(std::vector{0, r / 2 * (.5 + sqrt(3))});
+
+    drawLine(screen, bl, br);
+    drawArc(screen, lc, r, M_PI / 3, M_PI * 2);
+    drawArc(screen, rc, r, M_PI, M_PI * 8 / 3);
+    drawArc(screen, tc, r, -M_PI / 3, M_PI * 4 / 3);
+    QuadBezier((lc + rc) / 2, ta, bl).draw(screen);
+    QuadBezier((lc + rc) / 2, ta, br).draw(screen);
+}
+
+void TextGraphics::drawSpade(SDL_Surface* screen, Vector p, Vector d) {
+    double r = d.vect[0] / 4;
+    Vector m = p + d / 2 + Vector{std::vector{0, r * 3.0 / 4}};
+    Vector lc = m + Vector{std::vector<double>{-r, 0}};
+    Vector rc = m + Vector(std::vector<double>{r, 0});
+    Vector ls = m - Vector(std::vector<double>{2 * r, 0});
+    Vector rs = m - Vector(std::vector<double>{-2 * r, 0});
+    Vector lh = ls - Vector(std::vector{0, r});
+    Vector rh = rs - Vector(std::vector{0, r});
+    Vector t = m - Vector(std::vector{0, 3 * r});
+    Vector bl = m + Vector(std::vector{-r / 4, r * 3 / 2});
+    Vector br = m + Vector(std::vector{r / 4, r * 3 / 2});
+    Vector bh = m + Vector(std::vector{0, r * 3 / 4});
+
+    drawLine(screen, bl, br);
+    drawArc(screen, lc, r, M_PI, 2 * M_PI);
+    drawArc(screen, rc, r, M_PI, 2 * M_PI);
+    QuadBezier(ls, lh, t).draw(screen);
+    QuadBezier(rs, rh, t).draw(screen);
+    QuadBezier(m, bh, bl).draw(screen);
+    QuadBezier(m, bh, br).draw(screen);
+}

@@ -3,12 +3,12 @@
 
 Card::Card() {
     rank = 1;
-    suite = 1;
+    suit = 1;
 }
 
 Card::Card(int r, int s) {
     rank = r;
-    suite = s;
+    suit = s;
 }
 
 void Card::draw(SDL_Surface* screen, Vector p, Vector d) {
@@ -27,7 +27,7 @@ void Card::draw(SDL_Surface* screen, Vector p, Vector d) {
         case 13: text = "K"; break;
         default: text = std::to_string(rank);
     }
-    switch(suite) {
+    switch(suit) {
         case 1: text += "H"; break;
         case 2: text += "D"; break;
         case 3: text += "C"; break;
@@ -48,7 +48,7 @@ void Card::draw(SDL_Surface* screen, Vector p, Vector d) {
 bool Card::beats(Card card) {
 
     //3 of spades overrule joker
-    if(card.rank == 14 && rank == 3 && suite == 4) {
+    if(card.rank == 14 && rank == 3 && suit == 4) {
         return true;
     }
 
@@ -88,5 +88,5 @@ std::string Card::getName() {
     if(rank == 14) {
         return "Joker";
     }
-    return ranks[rank] + " of " + suites[suite];
+    return ranks[rank] + " of " + suits[suit];
 }

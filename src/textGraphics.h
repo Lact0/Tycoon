@@ -47,4 +47,9 @@ void drawChar(SDL_Surface* screen, char c, Vector p, Vector d, Vector pad);
 void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d);
 void drawText(SDL_Surface* screen, std::string text, Vector p, Vector d, Vector pad);
 
+void drawHeart(SDL_Surface* screen, Vector p, Vector d);
+void drawDiamond(SDL_Surface* screen, Vector p, Vector d);
+void drawClub(SDL_Surface* screen, Vector p, Vector d);
+void drawSpade(SDL_Surface* screen, Vector p, Vector d);
+
 }
