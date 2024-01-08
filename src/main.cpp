@@ -78,20 +78,13 @@ int main(int argv, char** args) {
     bool running = true;
     int frameStart, frameTime;
 
-    vector<Vector*> ponts;
-    Vector* hand = nullptr;
-
     while(running) {
         frameStart = SDL_GetTicks();
 
-        int x, y;
-        SDL_GetMouseState(&x, &y);
-        Vector pm(vector{x, y});
-
-        Card cards[14];
-        for(int i = 0; i < 14; i++) {
-            cards[i] = Card(i + 1, i % 4 + 1);
-        }
+        Vector windowSize(std::vector{windowWidth, windowHeight});
+        int mouseX, mouseY;
+        SDL_GetMouseState(&mouseX, &mouseY);
+        Vector pm(vector{mouseX, mouseY});
 
         while(SDL_PollEvent(&e) != 0) {
             switch(e.type) {
@@ -99,15 +92,6 @@ int main(int argv, char** args) {
                     running = false;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    if(hand == nullptr) {
-                        for(Vector* ptr : ponts) {
-                            if((pm - *ptr).mag < 10) {
-                                hand = ptr;
-                            }
-                        }
-                    } else {
-                        hand = nullptr;
-                    }
                     break;
                 case SDL_KEYDOWN:
                     switch(e.key.keysym.sym) {
@@ -125,38 +109,12 @@ int main(int argv, char** args) {
         }
 
         //Update
-        if(hand != nullptr) {
-            *hand = pm;
-        }
-        Vector windowSize(std::vector{windowWidth, windowHeight});
 
         //Draw
         SDL_LockSurface(screen);
         clearScreen();
 
-        for(Vector* ptr: ponts) {
-            Graphics::drawArc(screen, *ptr, 10, 0, 2 * 3.14159);
-        }
 
-        Vector d(vector{250, 500});
-        Vector p(vector{windowWidth - d.vect[0], windowHeight - d.vect[1]});
-        p /= 2;
-
-        Vector cardSize(std::vector{windowWidth / 15, windowWidth / 15 / 5 * 7});
-        for(int i = 0; i < 14; i++) {
-            Card card = cards[i];
-            Vector cardPos(std::vector{(double) (windowWidth * (i + 1) / 15 / 15 + windowWidth / 15 * i), windowHeight - cardSize.vect[1]});
-            card.draw(
-                screen,
-                cardPos,
-                cardSize
-            );
-        }
-
-        Vector ld(std::vector{250, 250 / 5 * 7});
-        Vector lp = (windowSize - ld) / 2;
-        Graphics::drawRect(screen, lp, ld);
-        TextGraphics::drawSpade(screen, lp, ld);
 
         SDL_UnlockSurface(screen);
         SDL_UpdateWindowSurface(window);
